@@ -13,7 +13,9 @@ public class EmployeeFlightManagementMenu implements Menu {
 
     @Override
     public void startMenu() {
+        //noinspection StatementWithEmptyBody
         while(display());
+        System.out.println("Returning to previous menu...");
     }
 
     @Override
@@ -33,9 +35,9 @@ public class EmployeeFlightManagementMenu implements Menu {
                 break;
             case 2:
                 new EmployeeUpdateFlightMenu(selectedFlight).startMenu();
-                // TODO: Update flight
                 break;
             case 3:
+                new EmployeeAddSeatMenu(selectedFlight).startMenu();
                 // TODO: Add Seats to flight
                 break;
             case 4:

@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 public class EmployeeUpdateFlightMenuTest {
 
     @Mock
-    EmployeeUpdateFlightMenu eufm;
+    EmployeeUpdateFlightMenu menu;
 
     @Before
     public void setUp() {
@@ -40,47 +40,47 @@ public class EmployeeUpdateFlightMenuTest {
         testFlight.setId(999);
         testFlight.setRoute(testRoute);
 
-        eufm = new EmployeeUpdateFlightMenu(testFlight);
+        menu = new EmployeeUpdateFlightMenu(testFlight);
     }
 
 
     @Test
     public void testAssignAirport() {
 
-        EmployeeUpdateFlightMenu mockEufm = Mockito.spy(eufm);
+        EmployeeUpdateFlightMenu mockedMenu = Mockito.spy(menu);
 
         Airport responseAirport = new Airport();
         responseAirport.setAirportCode("PAR");
         responseAirport.setCity("Paris");
 
-        doReturn("par").when(mockEufm).getStringInput();
-        doReturn(responseAirport).when(mockEufm).getAirportByCode(any());
+        doReturn("par").when(mockedMenu).getStringInput();
+        doReturn(responseAirport).when(mockedMenu).getAirportByCode(any());
 
-        boolean actual = mockEufm.assignAirport("Origin");
+        boolean actual = mockedMenu.assignAirport("Origin");
         assertTrue(actual);
     }
 
     @Test
     public void testAssignAirportSkip() {
-        EmployeeUpdateFlightMenu mockEufm = Mockito.spy(eufm);
-        doReturn("n/a").when(mockEufm).getStringInput();
+        EmployeeUpdateFlightMenu mockedMenu = Mockito.spy(menu);
+        doReturn("n/a").when(mockedMenu).getStringInput();
 
-        boolean actual = mockEufm.assignAirport(any());
+        boolean actual = mockedMenu.assignAirport(any());
         assertTrue(actual);
     }
 
     @Test
     public void testAssignAirportExit() {
-        EmployeeUpdateFlightMenu mockEufm = Mockito.spy(eufm);
-        doReturn("quit").when(mockEufm).getStringInput();
+        EmployeeUpdateFlightMenu mockedMenu = Mockito.spy(menu);
+        doReturn("quit").when(mockedMenu).getStringInput();
 
-        boolean actual = mockEufm.assignAirport(any());
+        boolean actual = mockedMenu.assignAirport(any());
         assertFalse(actual);
     }
 
     @Test
     public void testDisplay(){
-        EmployeeUpdateFlightMenu mockEufm = Mockito.spy(eufm);
+        EmployeeUpdateFlightMenu mockedMenu = Mockito.spy(menu);
 
         Airport responseAirport = new Airport();
         responseAirport.setAirportCode("PAR");
@@ -91,12 +91,12 @@ public class EmployeeUpdateFlightMenuTest {
                 doReturn("17:55").
                 doReturn("07-22-2021").
                 doReturn("17:55").
-                when(mockEufm).getStringInput();
-        doReturn(responseAirport).when(mockEufm).getAirportByCode("par");
-        doReturn(responseAirport).when(mockEufm).getAirportByCode("hou");
+                when(mockedMenu).getStringInput();
+        doReturn(responseAirport).when(mockedMenu).getAirportByCode("par");
+        doReturn(responseAirport).when(mockedMenu).getAirportByCode("hou");
 
 
-        boolean actual = mockEufm.display();
+        boolean actual = mockedMenu.display();
         assertFalse(actual);
 
 
@@ -104,19 +104,19 @@ public class EmployeeUpdateFlightMenuTest {
 
     @Test
     public void testAssignDepartureDate() {
-        EmployeeUpdateFlightMenu mockEufm = Mockito.spy(eufm);
-        doReturn("07-21-2021").doReturn("17:55").when(mockEufm).getStringInput();
-        boolean actual = mockEufm.assignFlightDate("Departure");
+        EmployeeUpdateFlightMenu mockedMenu = Mockito.spy(menu);
+        doReturn("07-21-2021").doReturn("17:55").when(mockedMenu).getStringInput();
+        boolean actual = mockedMenu.assignFlightDate("Departure");
 
-        assertNotNull(mockEufm.flight.getDepartureTime());
+        assertNotNull(mockedMenu.flight.getDepartureTime());
         assertTrue(actual);
 
     }
 
     @Test (expected = DateTimeParseException.class)
     public void testAssignDepartureDateBadFormat() {
-        EmployeeUpdateFlightMenu mockEufm = Mockito.spy(eufm);
-        doReturn("July 21 2021").doReturn("17:55").when(mockEufm).getStringInput();
-        mockEufm.assignFlightDate("Departure");
+        EmployeeUpdateFlightMenu mockedMenu = Mockito.spy(menu);
+        doReturn("July 21 2021").doReturn("17:55").when(mockedMenu).getStringInput();
+        mockedMenu.assignFlightDate("Departure");
     }
 }

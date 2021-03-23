@@ -16,7 +16,10 @@ public class EmployeeViewFlightMenu implements Menu {
 
     @Override
     public void startMenu() {
+        //noinspection StatementWithEmptyBody
         while (display()) ;
+        System.out.println("Returning to previous menu...");
+
     }
 
     @Override
@@ -60,6 +63,7 @@ public class EmployeeViewFlightMenu implements Menu {
 
         System.out.println(sb);
         try {
+            //noinspection ResultOfMethodCallIgnored
             System.in.read();
         } catch (IOException e) {
             e.printStackTrace();

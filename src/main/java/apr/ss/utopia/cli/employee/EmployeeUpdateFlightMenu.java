@@ -6,6 +6,7 @@ import apr.ss.utopia.entity.Flight;
 import apr.ss.utopia.entity.Route;
 import apr.ss.utopia.inputhandler.StringInputHandler;
 import apr.ss.utopia.service.AirportService;
+import apr.ss.utopia.service.FlightService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +28,8 @@ public class EmployeeUpdateFlightMenu implements Menu {
     @Override
     public void startMenu() {
         //noinspection StatementWithEmptyBody
-        while (display()) ;
+        while (display());
+        System.out.println("Returning to previous menu...");
     }
 
     @Override
@@ -79,8 +81,7 @@ public class EmployeeUpdateFlightMenu implements Menu {
                 System.out.println("Date and time format not recognized, please follow the correct format.");
             }
         }
-        proceed = false;
-
+        updateFlight();
         return false;
     }
 
@@ -138,7 +139,6 @@ public class EmployeeUpdateFlightMenu implements Menu {
             flight.setDuration(duration);
         }
         return true;
-
     }
 
     public String getStringInput() {
@@ -148,6 +148,11 @@ public class EmployeeUpdateFlightMenu implements Menu {
     public Airport getAirportByCode(String code) {
         AirportService as = new AirportService();
         return as.fetchAirportByIATA(code);
+    }
+
+    public void updateFlight(){
+        FlightService fs = new FlightService();
+        fs.updateFlight(flight.getRoute(), flight); // TODO: update flight
     }
 
 }
