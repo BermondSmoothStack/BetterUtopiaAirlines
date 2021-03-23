@@ -18,7 +18,10 @@ public class EmployeeFlightsMenu implements Menu {
 
     @Override
     public void startMenu() {
+        //noinspection StatementWithEmptyBody
         while (display()) ;
+        System.out.println("Returning to previous menu...");
+
     }
 
     @Override

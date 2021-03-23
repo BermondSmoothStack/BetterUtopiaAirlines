@@ -1,6 +1,7 @@
 package apr.ss.utopia.cli;
 
 import apr.ss.utopia.cli.employee.EmployeeMenu;
+import apr.ss.utopia.cli.traveller.TravellerMenu;
 import apr.ss.utopia.inputhandler.IntInputHandler;
 
 public class MainMenu implements Menu {
@@ -27,6 +28,7 @@ public class MainMenu implements Menu {
                 new EmployeeMenu().startMenu();
                 break;
             case 2:
+                new TravellerMenu().startMenu();
                 // TODO: handle admin
                 break;
             case 3:

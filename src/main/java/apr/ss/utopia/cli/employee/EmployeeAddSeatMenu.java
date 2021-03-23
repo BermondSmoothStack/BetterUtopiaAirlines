@@ -18,6 +18,8 @@ public class EmployeeAddSeatMenu implements Menu {
     public void startMenu() {
         //noinspection StatementWithEmptyBody
         while (display()) ;
+        System.out.println("Returning to previous menu...");
+
     }
 
     @Override
@@ -61,7 +63,7 @@ public class EmployeeAddSeatMenu implements Menu {
         return new IntInputHandler(1, 1000).getInput();
     }
 
-    public void updateSeat(Seat seat){
+    public void updateSeat(Seat seat) {
         SeatService ss = new SeatService();
         ss.updateSeat(seat);
     }

@@ -38,7 +38,6 @@ public class EmployeeFlightManagementMenu implements Menu {
                 break;
             case 3:
                 new EmployeeAddSeatMenu(selectedFlight).startMenu();
-                // TODO: Add Seats to flight
                 break;
             case 4:
                 return false;
