@@ -89,8 +89,11 @@ public class EmployeeUpdateFlightMenuTest {
                 doReturn("hou").
                 doReturn("07-21-2021").
                 doReturn("17:55").
+                doReturn("07-22-2021").
+                doReturn("17:55").
                 when(mockEufm).getStringInput();
         doReturn(responseAirport).when(mockEufm).getAirportByCode("par");
+        doReturn(responseAirport).when(mockEufm).getAirportByCode("hou");
 
 
         boolean actual = mockEufm.display();
@@ -103,7 +106,7 @@ public class EmployeeUpdateFlightMenuTest {
     public void testAssignDepartureDate() {
         EmployeeUpdateFlightMenu mockEufm = Mockito.spy(eufm);
         doReturn("07-21-2021").doReturn("17:55").when(mockEufm).getStringInput();
-        boolean actual = mockEufm.assignDepartureDate();
+        boolean actual = mockEufm.assignFlightDate("Departure");
 
         assertNotNull(mockEufm.flight.getDepartureTime());
         assertTrue(actual);
@@ -114,6 +117,6 @@ public class EmployeeUpdateFlightMenuTest {
     public void testAssignDepartureDateBadFormat() {
         EmployeeUpdateFlightMenu mockEufm = Mockito.spy(eufm);
         doReturn("July 21 2021").doReturn("17:55").when(mockEufm).getStringInput();
-        mockEufm.assignDepartureDate();
+        mockEufm.assignFlightDate("Departure");
     }
 }

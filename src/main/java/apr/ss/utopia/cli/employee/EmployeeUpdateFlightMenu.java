@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+import java.time.temporal.ChronoUnit;
 
 public class EmployeeUpdateFlightMenu implements Menu {
 
@@ -25,6 +26,7 @@ public class EmployeeUpdateFlightMenu implements Menu {
 
     @Override
     public void startMenu() {
+        //noinspection StatementWithEmptyBody
         while (display()) ;
     }
 
@@ -54,17 +56,30 @@ public class EmployeeUpdateFlightMenu implements Menu {
             }
         }
         proceed = false;
-        while(!proceed){
+        while (!proceed) {
             try {
-                if (!assignDepartureDate()) {
+                if (!assignFlightDate("Departure")) {
                     return false;
                 } else {
                     proceed = true;
                 }
-            } catch (DateTimeParseException e){
+            } catch (DateTimeParseException e) {
                 System.out.println("Date and time format not recognized, please follow the correct format.");
             }
         }
+        proceed = false;
+        while (!proceed) {
+            try {
+                if (!assignFlightDate("Arrival")) {
+                    return false;
+                } else {
+                    proceed = true;
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("Date and time format not recognized, please follow the correct format.");
+            }
+        }
+        proceed = false;
 
         return false;
     }
@@ -95,8 +110,8 @@ public class EmployeeUpdateFlightMenu implements Menu {
         }
     }
 
-    public boolean assignDepartureDate() throws DateTimeParseException {
-        System.out.println("Please enter new Departure Date (mm-dd-yyyy) or enter " + NA + " for no change:\n");
+    public boolean assignFlightDate(String tag) throws DateTimeParseException {
+        System.out.println("Please enter new " + tag + " Date (mm-dd-yyyy) or enter " + NA + " for no change:\n");
         String dateStr = getStringInput();
 
         if (dateStr.equalsIgnoreCase(QUIT))
@@ -104,7 +119,7 @@ public class EmployeeUpdateFlightMenu implements Menu {
         if (NA.equalsIgnoreCase(dateStr))
             return true;
 
-        System.out.println("Please enter a new Departure Time (24h Format) or enter " + NA + " for no change.");
+        System.out.println("Please enter a new " + tag + " Time (24h Format) or enter " + NA + " for no change.");
         String timeStr = getStringInput();
         if (NA.equalsIgnoreCase(timeStr))
             return false;
@@ -114,7 +129,14 @@ public class EmployeeUpdateFlightMenu implements Menu {
         String dateTimeStr = dateStr + " " + timeStr;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-uuuu HH:mm").withResolverStyle(ResolverStyle.STRICT);
         LocalDateTime date = LocalDateTime.parse(dateTimeStr, dtf);
-        flight.setDepartureTime(date);
+
+        if ("Departure".equals(tag))
+            flight.setDepartureTime(date);
+        else {
+            LocalDateTime fromDate = flight.getDepartureTime();
+            Integer duration = Math.toIntExact(ChronoUnit.MINUTES.between(fromDate, date));
+            flight.setDuration(duration);
+        }
         return true;
 
     }
