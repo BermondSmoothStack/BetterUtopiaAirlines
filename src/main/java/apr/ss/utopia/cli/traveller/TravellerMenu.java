@@ -33,7 +33,7 @@ public class TravellerMenu implements Menu {
         );
         switch(getMenuInput()){
             case 1:
-                new TravellerBookNewFlight(passenger).startMenu();
+                new TravellerBookNewFlightMenu(passenger).startMenu();
                 break;
             case 2:
                 // TODO: Cancel booking

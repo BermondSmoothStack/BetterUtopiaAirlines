@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TravellerBookNewFlight implements Menu {
+public class TravellerBookNewFlightMenu implements Menu {
 
     final Passenger passenger;
 
-    public TravellerBookNewFlight(Passenger passenger) {
+    public TravellerBookNewFlightMenu(Passenger passenger) {
         this.passenger = passenger;
     }
 
@@ -48,17 +48,17 @@ public class TravellerBookNewFlight implements Menu {
         int count2 = 1;
         if (selectedFlight.getFirstClass().getAvailable() > 0) {
             seats.add(selectedFlight.getFirstClass());
-            sb2.append("[").append(count2).append("] First Class");
+            sb2.append("\n[").append(count2).append("] First Class");
             count2++;
         }
         if (selectedFlight.getBusinessClass().getAvailable() > 0) {
             seats.add(selectedFlight.getBusinessClass());
-            sb2.append("[").append(count2).append("] Business Class");
+            sb2.append("\n[").append(count2).append("] Business Class");
             count2++;
         }
         if (selectedFlight.getEconomyClass().getAvailable() > 0) {
             seats.add(selectedFlight.getEconomyClass());
-            sb2.append("[").append(count2).append("] Economy Class");
+            sb2.append("\n[").append(count2).append("] Economy Class");
         }
 
         System.out.println(sb2.toString());
@@ -90,7 +90,7 @@ public class TravellerBookNewFlight implements Menu {
     }
 
     public void createNewTicket(Passenger p, Seat s){
-        TicketService ts = new TicketService();
+        TicketService ts = new TicketService(); //TODO: Create ticket
         ts.createTicket(p, s);
     }
 }
